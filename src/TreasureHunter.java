@@ -120,7 +120,9 @@ public class TreasureHunter {
             choice = SCANNER.nextLine().toLowerCase();
             processChoice(choice);
         }
-        System.out.println("Guess what happens when you don't have gold left to take? You get your life taken away instead.");
+        if (currentTown.isGameOver()) {
+            System.out.println("Guess what happens when you don't have gold left to take? You get your life taken away instead.");
+        }
     }
 
     /**
