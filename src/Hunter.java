@@ -6,9 +6,12 @@
 
 public class Hunter {
     //instance variables
+    private static int idx = 0;
     private String hunterName;
     private String[] kit;
     private int gold;
+    private String[] treasures = new String[3];
+    Town town = new Town();
 
     /**
      * The base constructor of a Hunter assigns the name to the hunter and an empty kit.
@@ -26,7 +29,21 @@ public class Hunter {
     public String getHunterName() {
         return hunterName;
     }
-
+    public String addTreasure(String treasure){
+        for(int i = 0; i < 3; i++) {
+            if(treasures[i].equals(treasure)) {
+                return "You already have this treasure.";
+            }
+        }
+        if (idx < 3) {
+            treasures[idx] = treasure;
+        }
+        idx++;
+        return "";
+    }
+    public boolean allTreasuresFound(){
+        return (treasures[0] != null && treasures[1] != null && treasures[2] != null) ? true : false;
+    }
     /**
      * Updates the amount of gold the hunter has.
      *
@@ -135,7 +152,7 @@ public class Hunter {
 
         for (String item : kit) {
             if (item != null) {
-                printableKit += item + space;
+                printableKit += item + space + town.treasuresFound();
             }
         }
 
