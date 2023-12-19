@@ -9,6 +9,7 @@ public class Hunter {
     private String hunterName;
     private String[] kit;
     private int gold;
+    private boolean easyMode;
 
     /**
      * The base constructor of a Hunter assigns the name to the hunter and an empty kit.
@@ -20,6 +21,15 @@ public class Hunter {
         this.hunterName = hunterName;
         kit = new String[7]; // only 5 possible items can be stored in kit
         gold = startingGold;
+        easyMode = false;
+    }
+
+    public void setEasyMode() {
+        easyMode = true;
+    }
+
+    public boolean isEasyMode() {
+        return easyMode;
     }
 
     //Accessors
@@ -69,7 +79,6 @@ public class Hunter {
         if (buyBackPrice <= 0 || !hasItemInKit(item)) {
             return false;
         }
-
         gold += buyBackPrice;
         removeItemFromKit(item);
         return true;
@@ -114,6 +123,7 @@ public class Hunter {
      */
     public boolean hasItemInKit(String item) {
         for (String tmpItem : kit) {
+            System.out.println(tmpItem + item);
             if (item.equals(tmpItem)) {
                 // early return
                 return true;
