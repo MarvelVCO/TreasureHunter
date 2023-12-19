@@ -12,6 +12,8 @@ public class Town {
     private String printMessage;
     private boolean toughTown;
 
+    private boolean gameOver;
+
     /**
      * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
      *
@@ -30,10 +32,14 @@ public class Town {
 
         // higher toughness = more likely to be a tough town
         toughTown = (Math.random() < toughness);
+        gameOver = false;
     }
 
     public String getLatestNews() {
         return printMessage;
+    }
+    public boolean isGameOver() {
+        return gameOver;
     }
 
     /**
@@ -108,7 +114,7 @@ public class Town {
             } else {
                 printMessage += "That'll teach you to go lookin' fer trouble in MY town! Now pay up!";
                 printMessage += "\nYou lost the brawl and pay " + goldDiff + " gold.";
-                hunter.changeGold(-goldDiff);
+                gameOver = hunter.changeGold(-goldDiff);
             }
         }
     }
