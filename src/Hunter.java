@@ -99,7 +99,7 @@ public class Hunter {
     private boolean addItem(String item) {
         if (!hasItemInKit(item)) {
             int idx = emptyPositionInKit();
-            kit[idx] = item;
+            kit[idx] = Colors.PURPLE + item + Colors.RESET;
             return true;
         }
 
