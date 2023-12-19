@@ -54,14 +54,14 @@ public class TreasureHunter {
             hardMode = true;
         }
         if (hard.equals("test")) {
-            hunter.changeGold(96);
+            hunter.changeGold(97);
             hunter.buyItem("Water", 1);
             hunter.buyItem("Rope", 1);
             hunter.buyItem("Machete", 1);
             hunter.buyItem("Horse", 1);
             hunter.buyItem("Boat", 1);
             hunter.buyItem("Boots", 1);
-
+            hunter.buyItem("Shovel", 1);
         }
     }
 
@@ -113,6 +113,7 @@ public class TreasureHunter {
             System.out.println("(B)uy something at the shop.");
             System.out.println("(S)ell something at the shop.");
             System.out.println("(M)ove on to a different town.");
+            System.out.println("(D)ig for gold! (Requires shovel)");
             System.out.println("(L)ook for trouble!");
             System.out.println("Give up the hunt and e(X)it.");
             System.out.println();
@@ -138,6 +139,8 @@ public class TreasureHunter {
                 System.out.println(currentTown.getLatestNews());
                 enterTown();
             }
+        } else if (choice.equals("d")) {
+            currentTown.dig(hunter.hasItemInKit("shovel"));
         } else if (choice.equals("l")) {
             currentTown.lookForTrouble();
         } else if (choice.equals("x")) {
