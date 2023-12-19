@@ -119,6 +119,20 @@ public class Town {
             }
         }
     }
+    public void dig(boolean hasShovel) {
+        if(hasShovel) {
+            System.out.println("You can't dig without a shovel");
+        }
+        double randNum = Math.random();
+        if(randNum >= 0.5) {
+            int coinsEarned = (int) (Math.random() * 20) + 1;
+            System.out.println("You dug up " + coinsEarned + " coins");
+            hunter.changeGold(coinsEarned);
+        }
+        if(randNum < 0.5) {
+            System.out.println("You dug but only found dirt");
+        }
+    }
 
     public String toString() {
         return "This nice little town is surrounded by " + terrain.getTerrainName() + ".";
