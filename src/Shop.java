@@ -22,6 +22,7 @@ public class Shop {
     // instance variables
     private double markdown;
     private Hunter customer;
+    private boolean secretMode;
 
     /**
      * The Shop constructor takes in a markdown value and leaves customer null until one enters the shop.
@@ -31,6 +32,10 @@ public class Shop {
     public Shop(double markdown) {
         this.markdown = markdown;
         customer = null; // is set in the enter method
+    }
+    public Shop() {}
+    public void setSecretMode(boolean mode) {
+        secretMode = mode;
     }
 
     /**
@@ -91,7 +96,9 @@ public class Shop {
         str += "Boat: " + BOAT_COST + " gold\n";
         str += "Boots: " + BOOTS_COST + " gold\n";
         str += "Shovel: " + SHOVEL_COST + " gold\n";
-
+        if(secretMode) {
+            str += "Sword: 0 gold\n";
+        }
         return str;
     }
 

@@ -16,6 +16,7 @@ public class TreasureHunter {
     private Town currentTown;
     private Hunter hunter;
     private boolean hardMode;
+    Shop shop = new Shop();
 
     /**
      * Constructs the Treasure Hunter game.
@@ -63,6 +64,9 @@ public class TreasureHunter {
             hunter.buyItem("Boots", 1);
             hunter.buyItem("Shovel", 1);
         }
+        if (hard.equals("s")){
+            shop.setSecretMode(true);
+        }
     }
 
     /**
@@ -104,7 +108,7 @@ public class TreasureHunter {
     private void showMenu() {
         String choice = "";
 
-        while (!choice.equals("x") && !currentTown.isGameOver()) {
+        while (!choice.equals("x") && !currentTown.isGameOver() && !hunter.allTreasuresFound()) {
             System.out.println();
             System.out.println(currentTown.getLatestNews());
             System.out.println("***");
@@ -123,6 +127,9 @@ public class TreasureHunter {
         }
         if (currentTown.isGameOver()) {
             System.out.println("Guess what happens when you don't have gold left to take? You get your life taken away instead.");
+        }
+        else if(hunter.allTreasuresFound()) {
+            System.out.println("You've found all the treasures.");
         }
     }
 
