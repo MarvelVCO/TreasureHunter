@@ -140,7 +140,6 @@ public class Hunter {
      */
     public boolean hasItemInKit(String item) {
         for (String tmpItem : kit) {
-            System.out.println(tmpItem + item);
             if (item.equals(tmpItem)) {
                 // early return
                 return true;
