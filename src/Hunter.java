@@ -12,6 +12,7 @@ public class Hunter {
     private int gold;
     private String[] treasures = new String[]{"", "", ""};
     private boolean easyMode;
+    private boolean samuraiMode;
     Town town = new Town();
 
     /**
@@ -22,7 +23,7 @@ public class Hunter {
      */
     public Hunter(String hunterName, int startingGold) {
         this.hunterName = hunterName;
-        kit = new String[7]; // only 5 possible items can be stored in kit
+        kit = isSamuraiMode() ? new String[8] : new String[7]; // only 5 possible items can be stored in kit
         gold = startingGold;
         easyMode = false;
     }
@@ -30,11 +31,15 @@ public class Hunter {
     public void setEasyMode() {
         easyMode = true;
     }
-
+    public void setSamuraiMode(boolean mode){
+        samuraiMode = mode;
+    }
+    public boolean isSamuraiMode(){
+        return samuraiMode;
+    }
     public boolean isEasyMode() {
         return easyMode;
     }
-
     //Accessors
     public String getHunterName() {
         return hunterName;
@@ -75,7 +80,13 @@ public class Hunter {
      * @return true if the item is successfully bought.
      */
     public boolean buyItem(String item, int costOfItem) {
-        if (costOfItem == 0 || gold < costOfItem || hasItemInKit(item)) {
+        if(isSamuraiMode()) {
+            if (gold > costOfItem) {
+                gold -= costOfItem;
+            }
+            addItem(item);
+            return true;
+        } else if (costOfItem == 0 || gold < costOfItem || hasItemInKit(item)) {
             return false;
         }
 

@@ -33,11 +33,6 @@ public class Shop {
         this.markdown = markdown;
         customer = null; // is set in the enter method
     }
-    public Shop() {}
-    public void setSecretMode(boolean mode) {
-        secretMode = mode;
-    }
-
     /**
      * Method for entering the shop.
      *
@@ -53,6 +48,10 @@ public class Shop {
             System.out.println(inventory());
             System.out.print("What're you lookin' to buy? ");
             String item = SCANNER.nextLine().toLowerCase();
+            if (item.equals("Sword")) {
+                System.out.println("Intimated by your demeanor and appearance the shop keeper decides to trust you with the sword and gives it to you.");
+                buyItem(item);
+            } else {
             int cost = checkMarketPrice(item, true);
             if (cost == 0) {
                 System.out.println("We ain't got none of those.");
@@ -64,19 +63,25 @@ public class Shop {
                     buyItem(item);
                 }
             }
+        }
         } else {
             System.out.println("What're you lookin' to sell? ");
             System.out.print("You currently have the following items: " + customer.getInventory());
             String item = SCANNER.nextLine().toLowerCase();
-            int cost = checkMarketPrice(item, false);
-            if (cost == 0 && !hunter.isEasyMode()) {
-                System.out.println("We don't want none of those.");
+            if (item.equals("Sword")) {
+                System.out.println("Intimated by your demeanor and appearance the shop keeper decides to trust you with the sword and gives it to you.");
+                buyItem(item);
             } else {
-                System.out.print("It'll get you " + cost + " gold. Sell it (y/n)? ");
-                String option = SCANNER.nextLine().toLowerCase();
+                int cost = checkMarketPrice(item, false);
+                if (cost == 0 && !hunter.isEasyMode()) {
+                    System.out.println("We don't want none of those.");
+                } else {
+                    System.out.print("It'll get you " + cost + " gold. Sell it (y/n)? ");
+                    String option = SCANNER.nextLine().toLowerCase();
 
-                if (option.equals("y")) {
-                    sellItem(item);
+                    if (option.equals("y")) {
+                        sellItem(item);
+                    }
                 }
             }
         }
@@ -96,7 +101,7 @@ public class Shop {
         str += "Boat: " + BOAT_COST + " gold\n";
         str += "Boots: " + BOOTS_COST + " gold\n";
         str += "Shovel: " + SHOVEL_COST + " gold\n";
-        if(secretMode) {
+        if(customer.isSamuraiMode()) {
             str += "Sword: 0 gold\n";
         }
         return str;

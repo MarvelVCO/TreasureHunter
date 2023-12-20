@@ -71,6 +71,10 @@ public class TreasureHunter {
             hunter.buyItem("Boots", 1);
             hunter.buyItem("Shovel", 1);
         }
+        if(modeStr.equals("s")) {
+//            mode = 3;
+            hunter.setSamuraiMode(true);
+        }
     }
 
     /**

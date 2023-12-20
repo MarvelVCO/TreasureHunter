@@ -7,7 +7,7 @@
 public class Town {
     // instance variables
     private static String[] treasures = new String[]{"Crown", "Trophy", "Gem", "Dust"};
-    public static String treasureFound;
+    public static String treasureFound = "";
     private Hunter hunter;
     private Shop shop;
     private Terrain terrain;
@@ -70,7 +70,7 @@ public class Town {
         } else {
             hunter.addTreasure(townTreasure.equals("Dust") ? "" : townTreasure);
             townisSearched = true;
-            treasureFound += townTreasure.equals("Dust") ? "" : townTreasure;
+            treasureFound += townTreasure.equals("Dust") ? "" : townTreasure + " ,";
             return "Congrats! You found the treasure " + townTreasure;
         }
     }
@@ -125,6 +125,12 @@ public class Town {
 
         if (Math.random() > noTroubleChance) {
             printMessage = Colors.RED + "You couldn't find any trouble" + Colors.RESET;
+        } else if(hunter.isSamuraiMode()) {
+            printMessage = Colors.RED + "You want trouble, stranger...? \n*The brawler sees your sword and decides it is better to give up* \nForgive me stranger, here have my gold!"  + Colors.RESET;
+            int goldDiff = (int) (Math.random() * 10) + 1;
+
+            printMessage += "\nYou won the brawl and receive " + goldDiff + Colors.YELLOW + " gold" + Colors.RESET;
+            hunter.changeGold(goldDiff);
         } else {
             printMessage = Colors.RED + "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n"  + Colors.RESET;
             int goldDiff = (int) (Math.random() * 10) + 1;
