@@ -10,8 +10,8 @@ public class Hunter {
     private String hunterName;
     private String[] kit;
     private int gold;
+    private String[] treasures = new String[]{"", "", ""};
     private boolean easyMode;
-    private String[] treasures = new String[3];
     Town town = new Town();
 
     /**
@@ -52,7 +52,7 @@ public class Hunter {
         return "";
     }
     public boolean allTreasuresFound(){
-        return (treasures[0] != null && treasures[1] != null && treasures[2] != null) ? true : false;
+        return (treasures[0] != "" && treasures[1] != "" && treasures[2] != "") ? true : false;
     }
     /**
      * Updates the amount of gold the hunter has.
@@ -125,7 +125,7 @@ public class Hunter {
     private boolean addItem(String item) {
         if (!hasItemInKit(item)) {
             int idx = emptyPositionInKit();
-            kit[idx] = Colors.PURPLE + item + Colors.RESET;
+            kit[idx] = item;
             return true;
         }
 
@@ -162,7 +162,7 @@ public class Hunter {
 
         for (String item : kit) {
             if (item != null) {
-                printableKit += item + space + town.treasuresFound();
+                printableKit += Colors.PURPLE + item + space + town.treasuresFound() + Colors.RESET;
             }
         }
 
