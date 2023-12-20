@@ -10,7 +10,8 @@ public class Hunter {
     private String hunterName;
     private String[] kit;
     private int gold;
-    private String[] treasures = new String[]{"", "", ""};
+    private boolean easyMode;
+    private String[] treasures = new String[3];
     Town town = new Town();
 
     /**
@@ -23,6 +24,15 @@ public class Hunter {
         this.hunterName = hunterName;
         kit = new String[7]; // only 5 possible items can be stored in kit
         gold = startingGold;
+        easyMode = false;
+    }
+
+    public void setEasyMode() {
+        easyMode = true;
+    }
+
+    public boolean isEasyMode() {
+        return easyMode;
     }
 
     //Accessors
@@ -42,7 +52,7 @@ public class Hunter {
         return "";
     }
     public boolean allTreasuresFound(){
-        return (treasures[0] != "" && treasures[1] != "" && treasures[2] != "") ? true : false;
+        return (treasures[0] != null && treasures[1] != null && treasures[2] != null) ? true : false;
     }
     /**
      * Updates the amount of gold the hunter has.
@@ -86,7 +96,6 @@ public class Hunter {
         if (buyBackPrice <= 0 || !hasItemInKit(item)) {
             return false;
         }
-
         gold += buyBackPrice;
         removeItemFromKit(item);
         return true;
@@ -116,7 +125,7 @@ public class Hunter {
     private boolean addItem(String item) {
         if (!hasItemInKit(item)) {
             int idx = emptyPositionInKit();
-            kit[idx] = item;
+            kit[idx] = Colors.PURPLE + item + Colors.RESET;
             return true;
         }
 
@@ -131,6 +140,7 @@ public class Hunter {
      */
     public boolean hasItemInKit(String item) {
         for (String tmpItem : kit) {
+            System.out.println(tmpItem + item);
             if (item.equals(tmpItem)) {
                 // early return
                 return true;
@@ -152,7 +162,7 @@ public class Hunter {
 
         for (String item : kit) {
             if (item != null) {
-                printableKit += Colors.PURPLE + item + space + town.treasuresFound() + Colors.RESET;
+                printableKit += item + space + town.treasuresFound();
             }
         }
 
