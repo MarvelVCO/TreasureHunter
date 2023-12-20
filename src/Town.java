@@ -6,13 +6,17 @@
 
 public class Town {
     // instance variables
+    private static String[] treasures = new String[]{"Crown", "Trophy", "Gem", "Dust"};
+    public static String treasureFound;
     private Hunter hunter;
     private Shop shop;
     private Terrain terrain;
     private String printMessage;
     private boolean toughTown;
-
+    private String townTreasure;
     private boolean gameOver;
+    private boolean townisSearched;
+    public Town () {}
 
     /**
      * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
@@ -51,11 +55,27 @@ public class Town {
         this.hunter = hunter;
         printMessage = "Welcome to town, " + hunter.getHunterName() + ".";
 
+        townTreasure = treasures[(int)(Math.random() * 3 + 1)];
+
+
         if (toughTown) {
             printMessage += "\nIt's pretty rough around here, so watch yourself.";
         } else {
             printMessage += "\nWe're just a sleepy little town with mild mannered folk.";
         }
+    }
+    public String huntForTreasure() {
+        if(townisSearched) {
+            return "You have already searched this town.";
+        } else {
+            hunter.addTreasure(townTreasure.equals("Dust") ? "" : townTreasure);
+            townisSearched = true;
+            treasureFound += townTreasure.equals("Dust") ? "" : townTreasure;
+            return "Congrats! You found the treasure " + townTreasure;
+        }
+    }
+    public String treasuresFound(){
+        return treasureFound;
     }
 
     /**
